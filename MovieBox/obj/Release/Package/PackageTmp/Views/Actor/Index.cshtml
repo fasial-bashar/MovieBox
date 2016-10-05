@@ -1,0 +1,78 @@
+﻿@model IEnumerable<MovieBox.Models.Actor>
+
+@{
+    ViewBag.Title = "Actors";
+}
+
+<h2>Top Actors In Hollywood</h2>
+
+<h2>Auto Search Actors By Name</h2>
+<div>
+    <input id="searchStringAuto" type="text" placeholder="Actor Name" />
+    <div id="resultsDivAuto"></div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#searchStringAuto").keyup(function () {
+                $("#resultsDivAuto").html("");
+                var namePart = { "namePart": $("#searchStringAuto").val() };
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/MovieService.asmx/GetActorByName",
+                    data: JSON.stringify(namePart),
+                    dataType: "json",
+                    async: true,
+                    success: function (result, textStatus) {
+                        if (textStatus == "success") {
+                            for (var i = 0; i < result.d.length; i++) {
+                                $("#resultsDivAuto").html($("#resultsDivAuto").html() + result.d[i] + "<br/>");
+                            }
+                        }
+                        $("#resultsDivAuto").show();
+                        $("#searchStringAuto").css("background", "#FFF");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Actor_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Actor_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Actor_ID })
+        </td>
+    </tr>
+}
+
+</table>

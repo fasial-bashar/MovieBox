@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="movieboxx" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Fasial\\Desktop\\AIT\ Backp\\MovieBox\\MovieBox\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Fasial\\Desktop\\AIT\ Backp\\MovieBox\\MovieBox\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=tcp:s6e5cimwuy.database.windows.net,1433;Initial Catalog=MovieDB;User Id=MovieBox@s6e5cimwuy;Password=Fardeen12" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Fasial\\Desktop\\AIT\ Backp\\MovieBox\\MovieBox\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="MovieContext-Web.config Connection String" description="" value="Data Source=tcp:s6e5cimwuy.database.windows.net,1433;Initial Catalog=MovieDB;User Id=MovieBox@s6e5cimwuy;Password=Fardeen12" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Fasial\\Desktop\\AIT\ Backp\\MovieBox\\MovieBox\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MovieContext']/@connectionString" />
+  </parameter>
+</parameters>

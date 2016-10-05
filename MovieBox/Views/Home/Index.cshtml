@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "MovieBox";
+}
+
+<center><h3>Coming Soon</h3></center>
+<html>
+<head>
+
+    <script type="text/javascript">
+
+var slideimages = new Array()
+slideimages[0] = new Image()
+slideimages[0].src = "/content/Images/starwars.jpg"
+slideimages[1] = new Image()
+slideimages[1].src = "/content/Images/deadpool.jpg"
+slideimages[2] = new Image()
+slideimages[2].src = "/content/Images/civilwar.jpg"
+slideimages[3] = new Image()
+slideimages[3].src = "/content/Images/batman.jpg"
+slideimages[4] = new Image()
+slideimages[4].src = "/content/Images/london.jpg"
+slideimages[5] = new Image()
+slideimages[5].src = "/content/Images/panda.jpg"
+slideimages[6] = new Image()
+slideimages[6].src = "/content/Images/squad.png"
+
+    </script>
+</head>
+<body>
+    <center><img src="firstcar.gif" id="slide" width="900" height="600" /></center>
+
+    <script type="text/javascript">
+
+
+var step=0
+
+function slideit(){
+
+ if (!document.images)
+  return
+ document.getElementById('slide').src = slideimages[step].src
+ if (step<6)
+  step++
+ else
+  step=0
+ setTimeout("slideit()",2500)
+}
+
+slideit()
+
+    </script>
+</body>
+</html>

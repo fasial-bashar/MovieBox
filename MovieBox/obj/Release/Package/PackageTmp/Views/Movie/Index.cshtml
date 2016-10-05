@@ -1,0 +1,95 @@
+﻿@model IEnumerable<MovieBox.Models.Movie>
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<h2>Movie Collection</h2>
+<h2>Auto Search Movies By Title</h2>
+<div>
+    <input id="searchStringAuto" type="text" placeholder="Movie Title" />
+    <div id="resultsDivAuto"></div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#searchStringAuto").keyup(function () {
+                $("#resultsDivAuto").html("");
+                var namePart = { "namePart": $("#searchStringAuto").val() };
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/MovieService.asmx/GetMovieByTitle",
+                    data: JSON.stringify(namePart),
+                    dataType: "json",
+                    async: true,
+                    success: function (result, textStatus) {
+                        if (textStatus == "success") {
+                            for (var i = 0; i < result.d.length; i++) {
+                                $("#resultsDivAuto").html($("#resultsDivAuto").html() + result.d[i] + "<br/>");
+                            }
+                        }
+                        $("#resultsDivAuto").show();
+                        $("#searchStringAuto").css("background", "#FFF");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Director)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Director)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Movie_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Movie_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Movie_ID })
+        </td>
+    </tr>
+}
+
+</table>

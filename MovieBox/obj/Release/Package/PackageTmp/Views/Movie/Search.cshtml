@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search Movies By Title</h2>
+
+<div>
+    <input id="searchString" type="text" placeholder="Movie Title" />
+    <input type="button" value="Search" onclick="DoSearch();" />
+</div>
+<div id="resultsDiv"></div>
+
+<h2>Auto Search Movies By Title</h2>
+<div>
+    <input id="searchStringAuto" type="text" placeholder="Movie Title" />
+    <div id="resultsDivAuto"></div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        function DoSearch() {
+            $("#resultsDiv").html("");
+            var namePart = { "namePart": $("#searchString").val() };
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/MovieService.asmx/GetMovieByTitle",
+                data: JSON.stringify(namePart),
+                dataType: "json",
+                async: true,
+                success: function (result, textStatus) {
+                    if (textStatus == "success") {
+                        for (var i = 0; i < result.d.length; i++) {
+                            $("#resultsDiv").html($("#resultsDiv").html() + result.d[i] + "<br/>");
+                        }
+                    }
+                },
+                error: function (result, status, error) {
+                    $("#resultsDiv").html("ERROR <br/>");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#searchStringAuto").keyup(function () {
+                $("#resultsDivAuto").html("");
+                var namePart = { "namePart": $("#searchStringAuto").val() };
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/MovieService.asmx/GetMovieByTitle",
+                    data: JSON.stringify(namePart),
+                    dataType: "json",
+                    async: true,
+                    success: function (result, textStatus) {
+                        if (textStatus == "success") {
+                            for (var i = 0; i < result.d.length; i++) {
+                                $("#resultsDivAuto").html($("#resultsDivAuto").html() + result.d[i] + "<br/>");
+                            }
+                        }
+                        $("#resultsDivAuto").show();
+                        $("#searchStringAuto").css("background", "#FFF");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
